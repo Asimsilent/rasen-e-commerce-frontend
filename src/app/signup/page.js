@@ -1,10 +1,13 @@
 "use client";
-import { useDispatch } from "react-redux";
-import { login } from "@/store/authSlice";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
-export default function LoginPage() {
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
+import { signupUser } from "@/store/authSlice";
+
+export default function SignupPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -18,13 +21,43 @@ export default function LoginPage() {
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    toast("Account created!");
   }
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(login(formData));
-    router.push("/products");
-  };
+    const resultAction = await dispatch(signupUser(formData));
+    // console.log(resultAction);
+    // console.dir(signupUser);
+
+    if (signupUser.fulfilled.match(resultAction)) {
+      router.push("/products");
+    }
+  }
+
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   try {
+  //     const data = await axios.post(
+  //       "http://localhost:5000/user/create",
+  //       formData
+  //     );
+  //     console.log(data);
+
+  //     dispatch(signup(formData));
+  //     router.push("/products");
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // }
+  // finally {
+  //   setFormData({
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     password: "",
+  //   });
+  // }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">

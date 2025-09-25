@@ -13,7 +13,7 @@
 // }
 
 import { redirect } from "next/navigation";
-
+// await fetch("http://localhost:5000");
 export default function Home() {
   redirect("/products");
 }
