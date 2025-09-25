@@ -25,7 +25,7 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (userId, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${process.env.BACKEND_URL}/cart/${userId}`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`);
       console.log("response after fetching cart", res);
 
       return res.data.cart; // make sure backend returns items
@@ -39,7 +39,7 @@ export const addCartItem = createAsyncThunk(
   "cart/addCartItem",
   async ({ cart, userId }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${process.env.BACKEND_URL}/cart/add`, {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`, {
         cart,
         userId,
       });
@@ -57,7 +57,7 @@ export const removeCartItem = createAsyncThunk(
   async ({ itemId, userId }, { rejectWithValue }) => {
     try {
       const res = await axios.patch(
-        `${process.env.BACKEND_URL}/cart/remove/${itemId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/cart/remove/${itemId}`,
         { userId }
       );
       console.log("res after removing cart item", res);
