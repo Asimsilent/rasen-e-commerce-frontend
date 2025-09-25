@@ -8,6 +8,7 @@ import ProductCard from "./ProductCard";
 import CartItem from "./CartItem";
 
 export default function Modal() {
+  
   const { isOpen, title, data } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 

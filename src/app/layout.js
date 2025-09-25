@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Providers } from "@/store/Providers";
 import AuthInitializer from "@/components/AuthInitializer";
-import ToastProvider from "@/components/ToastProvider";
+import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
   title: "Simple E-commerce",
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
             <Navbar />
             <main className="container mx-auto p-4">
               {children}
-              {/* <ToastProvider /> */}
+              <Toaster  />
             </main>
 
             <Modal />

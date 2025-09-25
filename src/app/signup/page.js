@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import { signupUser } from "@/store/authSlice";
 
@@ -21,7 +21,6 @@ export default function SignupPage() {
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    toast("Account created!");
   }
 
   async function handleSubmit(e) {
@@ -32,6 +31,7 @@ export default function SignupPage() {
 
     if (signupUser.fulfilled.match(resultAction)) {
       router.push("/products");
+      toast.success("Account created!");
     }
   }
 

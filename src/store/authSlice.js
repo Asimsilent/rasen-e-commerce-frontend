@@ -76,7 +76,7 @@ export const signupUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/user/create",
+        `${process.env.BACKEND_URL}/user/create`,
         formData
       );
       console.log("sign Up", res);
@@ -94,7 +94,7 @@ export const loginUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/user/login",
+        `${process.env.BACKEND_URL}/user/login`,
         formData
       );
       console.log("login", res);
