@@ -2,8 +2,10 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 import { closeModal, openModal } from "@/store/modalSlice";
-import { addCartItem, removeCartItem } from "@/store/cartSlice";
+import { addCartItem } from "@/store/cartSlice";
 
 export default function ProductCard({ productItem }) {
   const { user } = useSelector((state) => state.auth);
@@ -24,32 +26,41 @@ export default function ProductCard({ productItem }) {
       await dispatch(
         addCartItem({ cart: productItem, userId: user._id })
       ).unwrap();
+      toast.success("item added successfully!");
+      dispatch(closeModal());
     } catch (err) {
       console.error("adding failed", err);
-      // show toast or set local error
+      toast.error(err.addCartItemError);
     }
   };
 
   return (
-    <div className="border rounded-lg p-4 shadow">
-      <h2 className="font-semibold text-lg">{productItem.name}</h2>
-      <p className="text-gray-600">${productItem.price}</p>
+    <div className="border rounded-xl p-4 sm:p-6 shadow-lg  bg-gray-300 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between h-full">
+      <div>
+        <h2 className="font-semibold text-lg sm:text-xl mb-1 text-gray-900">
+          {productItem.name}
+        </h2>
+        <p className="text-gray-600 text-sm sm:text-base">
+          ${productItem.price}
+        </p>
+      </div>
 
-      <div className="flex gap-2 mt-3">
+      <div className="flex flex-col sm:flex-row gap-2 mt-4">
         <button
           onClick={handleAddCartItem}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg
+                 hover:bg-blue-700 transition transform duration-200 hover:scale-105"
         >
           Add to Cart
         </button>
 
-        {/* View Details */}
         {!isOpen && (
           <button
             onClick={() =>
               dispatch(openModal({ title: "product", data: productItem }))
             }
-            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+            className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg
+                   hover:bg-gray-700 transition transform duration-200 hover:scale-105"
           >
             View Details
           </button>

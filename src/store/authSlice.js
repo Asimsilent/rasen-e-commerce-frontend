@@ -49,11 +49,11 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+      //login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      //login
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
@@ -70,7 +70,6 @@ const authSlice = createSlice({
 export const { logout, updateProfile, presistedAuth } = authSlice.actions;
 export default authSlice.reducer;
 
-// Async thunk for sign up
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
   async (formData, { rejectWithValue }) => {

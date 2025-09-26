@@ -23,25 +23,20 @@ export default function SettingsDropdown() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Trigger button */}
       <button
         onClick={() => setOpen(!open)}
         className=" w-9 h-9 flex items-center bg-blue-600  hover:scale-110 hover:bg-blue-700 rounded-full"
       >
-        {/* <div className="relative "> */}
-          <Image
-            src="/setting1.png"
-            alt="setting"
-            fill
-            className="object-cover"
-          />
-        {/* </div> */}
+        <Image
+          src="/setting1.png"
+          alt="setting"
+          fill
+          className="object-cover"
+        />
       </button>
 
-      {/* Dropdown menu */}
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg z-50">
-          {/* Header with close */}
           <div className="flex justify-between items-center px-4 py-2 border-b">
             <span className="font-semibold">Settings</span>
             <button
@@ -52,7 +47,6 @@ export default function SettingsDropdown() {
             </button>
           </div>
 
-          {/* Menu items */}
           <ul className="flex flex-col">
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               Edit Profile

@@ -14,19 +14,22 @@ export default function CartPage() {
 
   useEffect(() => {
     console.log("running to fetch cart ");
-    
+
     if (user?._id) {
       dispatch(fetchCart(user._id));
     }
   }, [user, dispatch]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+    <div className="w-full max-w-3xl mx-auto p-4 sm:p-6 md:p-8  rounded-xl shadow-md">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white text-center md:text-left">
+        Your Cart
+      </h1>
+
       {items.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p className="text-gray-600 text-center">Your cart is empty</p>
       ) : (
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {items.map((item) => (
             <CartItem key={item._id} cartItem={item} />
           ))}

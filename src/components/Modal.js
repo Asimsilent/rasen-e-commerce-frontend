@@ -8,7 +8,6 @@ import ProductCard from "./ProductCard";
 import CartItem from "./CartItem";
 
 export default function Modal() {
-  
   const { isOpen, title, data } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
@@ -30,28 +29,27 @@ export default function Modal() {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center backdrop-blur-md z-50"
+      className="fixed inset-0 flex items-center justify-center backdrop-blur-md bg-black/30 z-50 px-4 sm:px-6"
       onClick={() => dispatch(closeModal())}
     >
       <div
-        className="bg-white rounded-lg p-6 max-w-lg w-full shadow-lg relative"
+        className="bg-white rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-xl relative transition-transform transform scale-95 sm:scale-100"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={() => dispatch(closeModal())}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-lg sm:text-xl"
         >
           ✕
         </button>
 
-        {/* Optional title */}
         {title && (
-          <h2 className="text-gray-700 text-2xl font-bold mb-4">{title}</h2>
+          <h2 className="text-gray-800 text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">
+            {title}
+          </h2>
         )}
 
-        {/* Content */}
-        {content}
+        <div className="text-gray-700 text-sm sm:text-base">{content}</div>
       </div>
     </div>
   );

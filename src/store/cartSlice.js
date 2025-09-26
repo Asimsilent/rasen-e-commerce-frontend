@@ -7,25 +7,13 @@ const initialState = {
   error: null,
 };
 
-// export const fetchCart = createAsyncThunk(
-//   "cart/fetchCart",
-//   async (userId, { rejectWithValue }) => {
-//     try {
-//       const res = await axios.get(`http://localhost:5000/cart/${userId}`);
-//       console.log(res);
-
-//       return res.data.cart;
-//     } catch (err) {
-//       return rejectWithValue(err.response?.data);
-//     }
-//   }
-// );
-
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (userId, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`
+      );
       console.log("response after fetching cart", res);
 
       return res.data.cart; // make sure backend returns items
@@ -39,10 +27,13 @@ export const addCartItem = createAsyncThunk(
   "cart/addCartItem",
   async ({ cart, userId }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`, {
-        cart,
-        userId,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/cart/add`,
+        {
+          cart,
+          userId,
+        }
+      );
       console.log("response after adding card", res);
 
       return res.data.cart; // the updated cart
@@ -74,17 +65,6 @@ export const removeCartItem = createAsyncThunk(
 const cartSlice = createSlice({
   name: "cart",
   initialState: { items: [] },
-  // reducers: {
-  // showCart: (state, action) => {
-  //   state.items.push(action.payload.map((val) => val));
-  // },
-  // addToCart: (state, action) => {
-  //   state.items.push(action.payload);
-  // },
-  // removeFromCart: (state, action) => {
-  //   state.items = state.items.filter((item) => item.id !== action.payload);
-  // },
-  // },
   extraReducers: (builder) => {
     builder
       // fetchCart

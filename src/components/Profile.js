@@ -1,8 +1,11 @@
 "use client";
+
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "@/store/authSlice";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+
+import { logout } from "@/store/authSlice";
+import toast from "react-hot-toast";
 
 export default function ProfileBadge() {
   const user = useSelector((state) => state.auth.user);
@@ -10,9 +13,8 @@ export default function ProfileBadge() {
   const router = useRouter();
 
   return (
-    <div className="flex items-center gap-3 bg-blue-500 p-2 rounded-lg shadow">
-      {/* Profile circle */}
-      <div className="relative w-10 h-10">
+    <div className="flex flex-col sm:flex-row items-center sm:gap-3 bg-blue-100 p-2 sm:p-3 rounded-lg shadow-md w-full sm:w-auto">
+      <div className="relative w-10 h-10 flex-shrink-0">
         <Image
           src="/solo6.jpg"
           alt="Profile"
@@ -21,18 +23,17 @@ export default function ProfileBadge() {
         />
       </div>
 
-      {/* Username */}
-      <span className="text-sm font-medium text-gray-700">
+      <span className="text-sm sm:text-base font-medium text-gray-800 mt-1 sm:mt-0">
         {user.firstName}
       </span>
 
-      {/* Logout button */}
       <button
         onClick={() => {
           dispatch(logout());
+          toast.success("Successfully logged out");
           router.push("/signup");
         }}
-        className="ml-auto px-3 py-1 text-sm bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+        className="mt-2 sm:mt-0 sm:ml-3 px-3 py-1 text-sm bg-red-600 text-white rounded-md hover:bg-red-700 transition"
       >
         Logout
       </button>
