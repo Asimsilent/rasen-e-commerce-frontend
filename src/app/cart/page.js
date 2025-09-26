@@ -4,21 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import CartItem from "@/components/CartItem";
 import { useEffect, useState } from "react";
 import { fetchCart } from "@/store/cartSlice";
+import Loader from "@/components/Loader";
 
 export default function CartPage() {
-  const items = useSelector((state) => state.cart.items);
+  const { loading, items } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   // console.log("cart items",items);
 
   useEffect(() => {
-    console.log("running to fetch cart ");
-
     if (user?._id) {
       dispatch(fetchCart(user._id));
     }
   }, [user, dispatch]);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 sm:p-6 md:p-8  rounded-xl shadow-md">
