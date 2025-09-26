@@ -3,10 +3,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Providers } from "@/store/Providers";
 import AuthInitializer from "@/components/AuthInitializer";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
-  title: "Simple E-commerce",
+  title: "Rasen E-commerce",
   description: "E-commerce assignment in Next.js",
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
             <Navbar />
             <main className="container mx-auto p-4">
               {children}
-              <Toaster  />
+              <Toaster />
             </main>
 
             <Modal />

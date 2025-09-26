@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import { closeModal } from "@/store/modalSlice";
 import { loginUser } from "@/store/authSlice";
 
 export default function LoginForm() {
+  const { loading } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -31,7 +33,7 @@ export default function LoginForm() {
       toast.success("successfually login!");
     } else {
       console.error("Login failed:", resultAction.payload);
-      toast.success("login failed!");
+      toast.error("login failed!");
     }
   }
 
@@ -44,6 +46,7 @@ export default function LoginForm() {
         onChange={handleChange}
         placeholder="email"
         required
+        disabled={loading}
         className="flex-1 px-3 py-2 rounded-lg text-gray-700 placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 "
       />
       <input
@@ -53,13 +56,15 @@ export default function LoginForm() {
         onChange={handleChange}
         placeholder="Password"
         required
+        disabled={loading}
         className="flex-1 px-3 py-2 rounded-lg text-gray-700 placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 "
       />
       <button
         type="submit"
+        disabled={loading}
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
-        Log In
+        {loading ? "wait for login..." : "Log In"}
       </button>
     </form>
   );
